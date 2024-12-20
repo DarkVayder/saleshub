@@ -1,15 +1,6 @@
-'use client';
-
+"use client"
 import { useState, useEffect } from 'react';
-import {
-  FiHome,
-  FiClock,
-  FiBriefcase,
-  FiUsers,
-  FiTrendingUp,
-  FiFileText,
-  FiMessageSquare,
-} from "react-icons/fi";
+import { FiHome, FiClock, FiBriefcase, FiUsers, FiTrendingUp, FiFileText, FiMessageSquare } from "react-icons/fi";
 import { FiAlignJustify } from "react-icons/fi";
 import { TbPinnedFilled } from "react-icons/tb";
 import { IoIosRocket } from "react-icons/io";
@@ -23,17 +14,20 @@ import { FaBookOpen } from "react-icons/fa";
 import { FaBookBookmark } from "react-icons/fa6";
 import { MdMenuBook } from "react-icons/md";
 import { FaClipboardList } from "react-icons/fa";
+import MessageModal from './MessageModal'; 
 
 export default function SidebarLeft() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [modalTarget, setModalTarget] = useState("");
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
 
-    handleResize(); // Check initially
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
@@ -45,6 +39,15 @@ export default function SidebarLeft() {
 
   const closeSidebar = () => {
     setSidebarOpen(false);
+  };
+
+  const openModal = (target) => {
+    setModalTarget(target);
+    setIsModalOpen(true); // Open the modal when Agent Skills is clicked
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false); // Close the modal
   };
 
   return (
@@ -106,46 +109,42 @@ export default function SidebarLeft() {
           </div>
 
           {/* Additional Sections */}
-          {[
-            {
-              title: "Customers",
-              items: [
-                { icon: <MdManageAccounts size={20} />, label: "Accounts" },
-                { icon: <FiUsers size={20} />, label: "Contacts" },
-              ],
-            },
-            {
-              title: "Sales",
-              items: [
-                { icon: <FiTrendingUp size={20} />, label: "Leads" },
-                { icon: <MdOutlineLeaderboard size={20} />, label: "Opportunities" },
-                { icon: <FaPeopleCarryBox size={20} />, label: "Competitors" },
-              ],
-            },
-            {
-              title: "Collateral",
-              items: [
-                { icon: <MdMenuBook size={20} />, label: "Quotes" },
-                { icon: <FaBookOpen size={20} />, label: "Orders" },
-                { icon: <FiFileText size={20} />, label: "Invoices" },
-                {
-                  icon: <MdOutlineProductionQuantityLimits size={20} />,
-                  label: "Products",
-                },
-                { icon: <FaBookBookmark size={20} />, label: "Sales Literature" },
-              ],
-            },
-            {
-              title: "Marketing",
-              items: [
-                { icon: <FaClipboardList size={20} />, label: "Marketing Listing" },
-                { icon: <FiMessageSquare size={20} />, label: "Quick Campaigns" },
-              ],
-            },
-            {
-              title: "Performance",
-              items: [{ icon: <FiTrendingUp size={20} />, label: "Sales" }],
-            },
+          {[{
+            title: "Customers",
+            items: [
+              { icon: <MdManageAccounts size={20} />, label: "Accounts" },
+              { icon: <FiUsers size={20} />, label: "Contacts" },
+            ],
+          },
+          {
+            title: "Sales",
+            items: [
+              { icon: <FiTrendingUp size={20} />, label: "Leads" },
+              { icon: <MdOutlineLeaderboard size={20} />, label: "Opportunities" },
+              { icon: <FaPeopleCarryBox size={20} />, label: "Competitors" },
+            ],
+          },
+          {
+            title: "Collateral",
+            items: [
+              { icon: <MdMenuBook size={20} />, label: "Quotes" },
+              { icon: <FaBookOpen size={20} />, label: "Orders" },
+              { icon: <FiFileText size={20} />, label: "Invoices" },
+              { icon: <MdOutlineProductionQuantityLimits size={20} />, label: "Products" },
+              { icon: <FaBookBookmark size={20} />, label: "Sales Literature" },
+            ],
+          },
+          {
+            title: "Marketing",
+            items: [
+              { icon: <FaClipboardList size={20} />, label: "Marketing Listing" },
+              { icon: <FiMessageSquare size={20} />, label: "Quick Campaigns" },
+            ],
+          },
+          {
+            title: "Performance",
+            items: [{ icon: <FiTrendingUp size={20} />, label: "Agent Skills", onClick: () => openModal("Agent Skills") }],
+          },
           ].map((section, idx) => (
             <div key={idx} className="mt-4 border-t border-gray-300 pt-4">
               <h2 className="text-gray-500 text-sm uppercase mb-2">{section.title}</h2>
@@ -153,6 +152,7 @@ export default function SidebarLeft() {
                 <li
                   key={itemIdx}
                   className="flex items-center gap-3 hover:bg-gray-200 p-2 rounded cursor-pointer"
+                  onClick={item.onClick} // Add onClick to open the modal
                 >
                   {item.icon} {item.label}
                 </li>
@@ -161,6 +161,9 @@ export default function SidebarLeft() {
           ))}
         </ul>
       </div>
+
+      {/* Modal for sending a message */}
+      {isModalOpen && <MessageModal onClose={closeModal} target={modalTarget} />}
     </div>
   );
 }

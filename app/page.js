@@ -1,4 +1,5 @@
-import SidebarLeft from "./components/SidebarLeft.js";
+import React from 'react';
+import SidebarLeft from "./components/SidebarLeft";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import Dashboard from "./components/Dashboard";

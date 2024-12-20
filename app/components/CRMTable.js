@@ -28,7 +28,7 @@ export default function CRMTable() {
 
       {/* Table */}
       <div className="overflow-x-auto">
-        <table className="w-full bg-white border border-gray-300 rounded-lg shadow-md">
+        <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
           <thead className="bg-gray-200">
             <tr>
               <th className="p-3 text-left text-black">
