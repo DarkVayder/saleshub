@@ -69,7 +69,7 @@ const Dashboard = () => {
                 <p className="text-sm text-gray-400">Expand Business</p>
                 {/* Engage Button */}
                 <button
-                  className="mt-2 text-blue-600 hover:underline"
+                  className="mt-2 text-blue-700 hover:underline"
                   onClick={() =>
                     handleOpenModal(
                       'Jane Reyes - Profile Details',
@@ -103,7 +103,7 @@ const Dashboard = () => {
                 </p>
                 {/* Engage Button */}
                 <button
-                  className="mt-2 text-blue-600 hover:underline"
+                  className="mt-2 text-blue-700 hover:underline"
                   onClick={() =>
                     handleOpenModal(
                       'Alan Munger - Profile Details',
@@ -136,6 +136,7 @@ const Dashboard = () => {
                 <span>Follow-up with regional sales team</span>
               </li>
             </ul>
+            <p className='text-blue-500 text-sm hover:text-gray-900 cursor-pointer'>Show more activities</p>
           </div>
         </div>
       </div>
