@@ -103,7 +103,7 @@ export default function Navbar() {
               {
                 icon: <FaTrashAlt className="mr-1" />,
                 label: "Delete",
-                modal: "Are you sure you want to delete this item?",
+                modal: "Lead successfully deleted",
               },
               {
                 icon: <FaRegLightbulb className="mr-1" />,
